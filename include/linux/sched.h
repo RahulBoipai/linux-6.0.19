@@ -1516,7 +1516,11 @@ struct task_struct {
 	 * New fields for task_struct should be added above here, so that
 	 * they are included in the randomized portion of task_struct.
 	 */
+
 	randomized_struct_fields_end
+
+	/*save mmcontext list head  */
+	struct list_head context_queue;
 
 	/* CPU-specific state of this task: */
 	struct thread_struct		thread;

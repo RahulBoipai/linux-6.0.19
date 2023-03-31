@@ -394,6 +394,15 @@ struct anon_vma_name {
 	char name[];
 };
 
+/* struct for saving context */
+
+struct process_context{
+	
+	struct list_head context_list;
+	struct page *new_page;
+	unsigned long address;
+};
+
 /*
  * This struct describes a virtual memory area. There is one of these
  * per VM-area/task. A VM area is any part of the process virtual memory
