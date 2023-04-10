@@ -3044,12 +3044,20 @@ static vm_fault_t fault_dirty_shared_page(struct vm_fault *vmf)
  * case, all we need to do here is to mark the page as writable and update
  * any related book-keeping.
  */
+extern void copy_pages(struct page *page);
 static inline void wp_page_reuse(struct vm_fault *vmf)
 	__releases(vmf->ptl)
 {
 	struct vm_area_struct *vma = vmf->vma;
 	struct page *page = vmf->page;
 	pte_t entry;
+	//printk("reuse %lx;",vmf->real_address);
+	/* copy_pages save context if there is write protect fault*/
+	if (current->contextsave){
+	copy_pages(page); //save pages
+	//printk("copy page done %lx",vmf->real_address);
+	}
+	
 
 	VM_BUG_ON(!(vmf->flags & FAULT_FLAG_WRITE));
 	VM_BUG_ON(page && PageAnon(page) && !PageAnonExclusive(page));

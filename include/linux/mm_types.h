@@ -394,13 +394,13 @@ struct anon_vma_name {
 	char name[];
 };
 
-/* struct for saving context */
-
+/* struct for saving context 
+store head of list, new page where context will be saved and address for which context is saved*/
 struct process_context{
 	
 	struct list_head context_list;
-	struct page *new_page;
-	unsigned long address;
+	struct page *new_page; //kernel pages
+	unsigned long address; //user address
 };
 
 /*

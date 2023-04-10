@@ -1519,8 +1519,11 @@ struct task_struct {
 
 	randomized_struct_fields_end
 
-	/*save mmcontext list head  */
+	/*mmcontext queue list head to store context  */
 	struct list_head context_queue;
+
+	/*check for mmcontext systemcall happen or not*/
+	bool contextsave;
 
 	/* CPU-specific state of this task: */
 	struct thread_struct		thread;

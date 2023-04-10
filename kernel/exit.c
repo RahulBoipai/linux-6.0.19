@@ -733,6 +733,7 @@ static void check_stack_usage(void)
 static inline void check_stack_usage(void) {}
 #endif
 
+extern void clear_context(void);
 void __noreturn do_exit(long code)
 {
 	struct task_struct *tsk = current;
@@ -740,6 +741,11 @@ void __noreturn do_exit(long code)
 
 	WARN_ON(tsk->plug);
 
+	/*clear saved context memory if not clear*/
+	if (current->contextsave){
+		clear_context(); //clear context_pages
+	}
+	
 	kcov_task_exit(tsk);
 
 	coredump_task_exit(tsk);
